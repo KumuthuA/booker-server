@@ -18,25 +18,28 @@ import org.hibernate.annotations.OnDeleteAction;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="CONTRACT")
+@Table( name = "CONTRACT" )
 @Getter
 @Setter
 @NoArgsConstructor
 public class ContractEntity
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue( strategy = GenerationType.SEQUENCE )
     private Integer contractId;
-    @ManyToOne(fetch= FetchType.LAZY, optional = false)
-    @JoinColumn(name="hotel_id", nullable = false)
-    @OnDelete( action= OnDeleteAction.CASCADE )
+    @Column( nullable = false, unique = true )
+    private Integer contractNo;
+    @ManyToOne( fetch = FetchType.LAZY, optional = false )
+    @JoinColumn( name = "hotel_id", nullable = false )
+    @OnDelete( action = OnDeleteAction.CASCADE )
     private HotelEntity hotelEntity;
-    @Column(nullable=false)
+    @Column( nullable = false )
     private LocalDateTime start;
-    @Column(nullable=false)
+    @Column( nullable = false )
     private LocalDateTime end;
-    @Column(nullable=false)
+    @Column( nullable = false )
     private Boolean isValid;
-    @Column(nullable=false)
+    @Column( nullable = false )
     private Float markup;
 }
+

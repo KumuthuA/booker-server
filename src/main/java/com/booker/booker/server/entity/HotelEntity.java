@@ -11,25 +11,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="HOTEL")
+@Table( name = "HOTEL" )
 @Getter
 @Setter
 @NoArgsConstructor
 public class HotelEntity
 {
+
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(length = 8)
+//    @GeneratedValue( generator = "uuid2" )
+//    @GenericGenerator( name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator" )
+    @GeneratedValue( strategy = GenerationType.SEQUENCE )
+    @Column( length = 8 )
     private Integer hotelId;
-    @Column(nullable=false)
+    @Column( nullable = false )
     private String hotelName;
-    @Column(nullable=false)
+    @Column( nullable = false )
     private String address;
-    @Column(nullable=false)
+    @Column( nullable = false )
     private String city;
-    @Column(nullable=false)
+    @Column( nullable = false )
     private String contactNo;
-    @Column(nullable=false)
+    @Column( nullable = false )
     private String email;
 
 }

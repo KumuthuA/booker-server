@@ -4,10 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
-public class ContractModel
+public class ContractRoomTypeModel
 {
     private Integer contractId;
     private Integer contractNo;
@@ -16,4 +17,5 @@ public class ContractModel
     private LocalDateTime end;
     private Boolean isValid;
     private Float markup;
+    private List<RoomTypeModel> roomTypes;
 }

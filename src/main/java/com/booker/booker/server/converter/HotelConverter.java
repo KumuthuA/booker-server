@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class HotelConverter
 {
-    public HotelEntity convertModelToEntity( HotelModel hotelModel ){
+    public HotelEntity convertModelToEntity( HotelModel hotelModel )
+    {
         HotelEntity he = new HotelEntity();
-        he.setHotelName(hotelModel.getHotelName());
+        he.setHotelName( hotelModel.getHotelName() );
         he.setCity( hotelModel.getCity() );
         he.setAddress( hotelModel.getAddress() );
         he.setContactNo( hotelModel.getContactNo() );
@@ -17,10 +18,11 @@ public class HotelConverter
         return he;
     }
 
-    public HotelModel convertEntityToModel(HotelEntity hotelEntity){
+    public HotelModel convertEntityToModel( HotelEntity hotelEntity )
+    {
         HotelModel hotelModel = new HotelModel();
-        hotelModel.setHotelId(hotelEntity.getHotelId());
-        hotelModel.setHotelName(hotelEntity.getHotelName());
+        hotelModel.setHotelId( hotelEntity.getHotelId() );
+        hotelModel.setHotelName( hotelEntity.getHotelName() );
         hotelModel.setCity( hotelEntity.getCity() );
         hotelModel.setAddress( hotelEntity.getAddress() );
         hotelModel.setContactNo( hotelEntity.getContactNo() );

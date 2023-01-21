@@ -1,17 +1,17 @@
 package com.booker.booker.server.service.impl;
 
 import com.booker.booker.server.converter.HotelConverter;
+import com.booker.booker.server.converter.HotelIdConverter;
 import com.booker.booker.server.entity.HotelEntity;
+import com.booker.booker.server.model.HotelIdModel;
 import com.booker.booker.server.model.HotelModel;
 import com.booker.booker.server.repository.HotelRepository;
 import com.booker.booker.server.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class HotelServiceImpl implements HotelService
@@ -20,27 +20,43 @@ public class HotelServiceImpl implements HotelService
     private HotelRepository hotelRepository;
     @Autowired
     private HotelConverter hotelConverter;
+    @Autowired
+    private HotelIdConverter hotelIdConverter;
 
     @Override
     public HotelModel saveHotel( HotelModel hotelModel )
     {
         HotelEntity he = hotelConverter.convertModelToEntity( hotelModel );
-        he = hotelRepository.save(he);
+        he = hotelRepository.save( he );
         hotelModel = hotelConverter.convertEntityToModel( he );
         return hotelModel;
     }
 
     @Override
-    public List<HotelModel> getAllHotels()
+    public List<HotelIdModel> getAllHotels()
     {
-        List<HotelEntity> hotelEntityList = (List<HotelEntity>)hotelRepository.findAll();
-        List<HotelModel> hotelModelList = new ArrayList<>();
-        for(HotelEntity he:hotelEntityList){
-            HotelModel hotelModel = hotelConverter.convertEntityToModel( he );
-            hotelModelList.add(hotelModel);
+        List<HotelEntity> hotelEntityList = ( List<HotelEntity> ) hotelRepository.findAll();
+        List<HotelIdModel> hotelIdModelList = new ArrayList<>();
+        for( HotelEntity he : hotelEntityList )
+        {
+            HotelIdModel hotelModel = hotelIdConverter.convertEntityToModel( he );
+            hotelIdModelList.add( hotelModel );
         }
-        return hotelModelList;
+        return hotelIdModelList;
     }
+
+//    @Override
+//    public List<HotelModel> getAllHotels()
+//    {
+//        List<HotelEntity> hotelEntityList = ( List<HotelEntity> ) hotelRepository.findAll();
+//        List<HotelModel> hotelModelList = new ArrayList<>();
+//        for( HotelEntity he : hotelEntityList )
+//        {
+//            HotelModel hotelModel = hotelConverter.convertEntityToModel( he );
+//            hotelModelList.add( hotelModel );
+//        }
+//        return hotelModelList;
+//    }
 
 //    @Override
 //    public HotelModel updateHotel(HotelModel hotelModel, Long hotelId){

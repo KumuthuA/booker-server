@@ -6,7 +6,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RoomTypeModel{
+public class RoomTypeModel
+{
     private Integer roomTypeId;
     private ContractEntity contractEntity;
     private String typeName;
