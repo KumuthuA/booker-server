@@ -12,5 +12,5 @@ public class SearchModel
 {
     private LocalDateTime start;
     private Integer nights;
-    private List<String> roomDetails;
+    private List<RoomDetailsModel> roomDetails;
 }

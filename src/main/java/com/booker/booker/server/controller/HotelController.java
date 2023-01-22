@@ -3,7 +3,10 @@ package com.booker.booker.server.controller;
 import com.booker.booker.server.model.HotelIdModel;
 import com.booker.booker.server.model.HotelModel;
 import com.booker.booker.server.model.HotelRoomTypeModel;
+import com.booker.booker.server.model.SearchModel;
 import com.booker.booker.server.service.HotelService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,7 @@ import java.util.List;
 @RequestMapping( "/api/v1" )
 public class HotelController
 {
+    Logger logger = LoggerFactory.getLogger( HotelController.class );
     @Autowired
     private HotelService hotelService;
 
@@ -47,12 +51,13 @@ public class HotelController
         return responseEntity;
     }
 
-    @GetMapping( "/search" )
-    public ResponseEntity<List<HotelRoomTypeModel>> search()
+    @PostMapping( "/search" )
+    public ResponseEntity<List<HotelRoomTypeModel>> search( @RequestBody SearchModel searchModel )
     {
-        List<HotelRoomTypeModel> hotelsList = hotelService.search();
-        ResponseEntity<List<HotelRoomTypeModel>> responseEntity = new ResponseEntity<>( hotelsList, HttpStatus.OK );
-        return responseEntity;
+        List<HotelRoomTypeModel> hotelsList = hotelService.search(searchModel);
+        //ResponseEntity<List<HotelRoomTypeModel>> responseEntity = new ResponseEntity<>( hotelsList, HttpStatus.OK );
+        //return responseEntity;
+        return null;
     }
 
 //    @PutMapping("/hotels/{hotelId}")

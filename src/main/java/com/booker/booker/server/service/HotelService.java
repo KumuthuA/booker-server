@@ -3,6 +3,7 @@ package com.booker.booker.server.service;
 import com.booker.booker.server.model.HotelIdModel;
 import com.booker.booker.server.model.HotelModel;
 import com.booker.booker.server.model.HotelRoomTypeModel;
+import com.booker.booker.server.model.SearchModel;
 
 import java.util.List;
 
@@ -14,5 +15,5 @@ public interface HotelService
 
     List<HotelModel> getHotels();
 
-    List<HotelRoomTypeModel> search();
+    List<HotelRoomTypeModel> search( SearchModel searchModel);
 }

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContractServiceImpl implements ContractService
@@ -35,8 +36,13 @@ public class ContractServiceImpl implements ContractService
     @Override
     public ContractRoomTypeModel saveContract( ContractRoomTypeModel contractRoomTypeModel )
     {
-        HotelEntity hotelEntity = hotelRepository.findByHotelId( contractRoomTypeModel.getHotelId() );
-        ContractEntity contractEntity = contractConverter.convertModelToEntity( contractRoomTypeModel, hotelEntity );
+        Optional<HotelEntity> hotelEntity = hotelRepository.findByHotelId( contractRoomTypeModel.getHotelId() );
+        if( !hotelEntity.isPresent() )
+        {
+            throw new IllegalStateException( "Hotel id " + contractRoomTypeModel.getHotelId() + " does not exists!" );
+        }
+        //HotelEntity hotelEntity = hotelRepository.findByHotelId( contractRoomTypeModel.getHotelId() );
+        ContractEntity contractEntity = contractConverter.convertModelToEntity( contractRoomTypeModel, hotelEntity.get() );
         List<RoomTypeModel> roomTypes = contractRoomTypeModel.getRoomTypes();
         contractEntity = contractRepository.save( contractEntity );
         List<RoomTypeModel> roomTypeModelList = new ArrayList<RoomTypeModel>();
