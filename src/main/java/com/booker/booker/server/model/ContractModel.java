@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 @Setter
 public class ContractModel
 {
+    //private Integer contractId;
     private Integer contractId;
-    private Integer contractNo;
     private String hotelName;
     private String city;
     private LocalDateTime start;

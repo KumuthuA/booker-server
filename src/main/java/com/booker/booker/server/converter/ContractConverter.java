@@ -21,7 +21,7 @@ public class ContractConverter
         ContractEntity ce = new ContractEntity();
         LocalDateTime start = timeConverter.utcToLocalDateTime( contractRoomTypeModel.getStart() );
         LocalDateTime end = timeConverter.utcToLocalDateTime( contractRoomTypeModel.getEnd() );
-        ce.setContractNo( contractRoomTypeModel.getContractNo() );
+        ce.setContractId( contractRoomTypeModel.getContractId() );
         ce.setHotelEntity( hotelEntity );
         ce.setStart( start );
         ce.setEnd( end );
@@ -37,10 +37,10 @@ public class ContractConverter
         //cm.setHotel(contractEntity.getHotel());
         LocalDateTime start = contractEntity.getStart();
         LocalDateTime end = contractEntity.getEnd();
-        cm.setContractNo( contractEntity.getContractNo() );
+        //cm.setContractNo( contractEntity.getContractNo() );
         cm.setStart( start );
         cm.setEnd( end );
-        cm.setIsValid( end.isAfter( LocalDateTime.now() ));
+        cm.setIsValid( end.isAfter( LocalDateTime.now() ) );
         cm.setMarkup( contractEntity.getMarkup() );
         cm.setRoomTypes( roomTypeModelList );
         return cm;
@@ -54,7 +54,7 @@ public class ContractConverter
         cm.setContractId( contractEntity.getContractId() );
         cm.setCity( contractEntity.getHotelEntity().getCity() );
         cm.setHotelName( contractEntity.getHotelEntity().getHotelName() );
-        cm.setContractNo( contractEntity.getContractNo() );
+        //cm.setContractNo( contractEntity.getContractNo() );
         cm.setStart( start );
         cm.setEnd( end );
         cm.setIsValid( end.isAfter( LocalDateTime.now() ) );

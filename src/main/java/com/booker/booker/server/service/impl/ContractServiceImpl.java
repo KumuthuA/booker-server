@@ -5,7 +5,6 @@ import com.booker.booker.server.converter.RoomTypeConverter;
 import com.booker.booker.server.entity.ContractEntity;
 import com.booker.booker.server.entity.HotelEntity;
 import com.booker.booker.server.entity.RoomTypeEntity;
-import com.booker.booker.server.exception.HotelNotFoundException;
 import com.booker.booker.server.model.ContractModel;
 import com.booker.booker.server.model.ContractRoomTypeModel;
 import com.booker.booker.server.model.RoomTypeModel;
@@ -36,7 +35,7 @@ public class ContractServiceImpl implements ContractService
     @Override
     public ContractRoomTypeModel saveContract( ContractRoomTypeModel contractRoomTypeModel )
     {
-        HotelEntity hotelEntity = hotelRepository.findById( contractRoomTypeModel.getHotelId() ).orElseThrow( () -> new HotelNotFoundException( "Hotel not found " ) );
+        HotelEntity hotelEntity = hotelRepository.findByHotelId( contractRoomTypeModel.getHotelId() );
         ContractEntity contractEntity = contractConverter.convertModelToEntity( contractRoomTypeModel, hotelEntity );
         List<RoomTypeModel> roomTypes = contractRoomTypeModel.getRoomTypes();
         contractEntity = contractRepository.save( contractEntity );

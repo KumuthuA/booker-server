@@ -11,7 +11,7 @@ public class ReservationModel
 {
 
     private String reservationId;
-    private Integer roomTypeId;
+    private String roomTypeId;
     private LocalDateTime checkIn;
     private LocalDateTime checkOut;
     private Integer roomCount;

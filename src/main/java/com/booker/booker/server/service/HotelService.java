@@ -2,6 +2,7 @@ package com.booker.booker.server.service;
 
 import com.booker.booker.server.model.HotelIdModel;
 import com.booker.booker.server.model.HotelModel;
+import com.booker.booker.server.model.HotelRoomTypeModel;
 
 import java.util.List;
 
@@ -13,7 +14,5 @@ public interface HotelService
 
     List<HotelModel> getHotels();
 
-    //HotelModel updateHotel(HotelModel hotelModel, Long hotelId);
-    //HotelModel updateNumber( HotelModel hotelModel, Long hotelId);
-    //void deleteHotel(Long hotelId);
+    List<HotelRoomTypeModel> search();
 }

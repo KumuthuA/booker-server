@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface RoomTypeRepository extends JpaRepository<RoomTypeEntity,Integer>
 {
-    List<RoomTypeEntity> findByContractEntity_ContractId( Integer contractId );
+    List<RoomTypeEntity> findByContractEntity_ContractId( Integer contractNo );
 }

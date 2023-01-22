@@ -5,6 +5,7 @@ import com.booker.booker.server.converter.HotelIdConverter;
 import com.booker.booker.server.entity.HotelEntity;
 import com.booker.booker.server.model.HotelIdModel;
 import com.booker.booker.server.model.HotelModel;
+import com.booker.booker.server.model.HotelRoomTypeModel;
 import com.booker.booker.server.repository.HotelRepository;
 import com.booker.booker.server.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,12 @@ public class HotelServiceImpl implements HotelService
             hotelModelList.add( hotelModel );
         }
         return hotelModelList;
+    }
+
+    @Override
+    public List<HotelRoomTypeModel> search()
+    {
+        return null;
     }
 
 

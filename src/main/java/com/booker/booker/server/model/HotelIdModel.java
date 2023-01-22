@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class HotelIdModel
 {
-    private Integer hotelId;
+    private String hotelId;
     private String hotelName;
     private String city;
 }

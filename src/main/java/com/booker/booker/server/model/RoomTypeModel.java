@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class RoomTypeModel
 {
-    private Integer roomTypeId;
+    private String roomTypeId;
     private Integer contractEntityId;
     private String typeName;
     private Integer roomCount;

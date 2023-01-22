@@ -10,9 +10,9 @@ import java.util.List;
 @Setter
 public class ContractRoomTypeModel
 {
+    //private Integer contractId;
     private Integer contractId;
-    private Integer contractNo;
-    private Integer hotelId;
+    private String hotelId;
     private LocalDateTime start;
     private LocalDateTime end;
     private Boolean isValid;

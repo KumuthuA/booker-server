@@ -1,6 +1,5 @@
 package com.booker.booker.server.controller;
 
-import com.booker.booker.server.model.HotelModel;
 import com.booker.booker.server.model.ReservationModel;
 import com.booker.booker.server.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ public class ReservationController
 {
     @Autowired
     ReservationService reservationService;
+
     @PostMapping( "/reserve" )
     public ResponseEntity<ReservationModel> saveReservation( @RequestBody ReservationModel reservationModel )
     {

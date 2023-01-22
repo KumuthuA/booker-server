@@ -2,6 +2,7 @@ package com.booker.booker.server.controller;
 
 import com.booker.booker.server.model.HotelIdModel;
 import com.booker.booker.server.model.HotelModel;
+import com.booker.booker.server.model.HotelRoomTypeModel;
 import com.booker.booker.server.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,14 @@ public class HotelController
     {
         List<HotelModel> hotelsList = hotelService.getHotels();
         ResponseEntity<List<HotelModel>> responseEntity = new ResponseEntity<>( hotelsList, HttpStatus.OK );
+        return responseEntity;
+    }
+
+    @GetMapping( "/search" )
+    public ResponseEntity<List<HotelRoomTypeModel>> search()
+    {
+        List<HotelRoomTypeModel> hotelsList = hotelService.search();
+        ResponseEntity<List<HotelRoomTypeModel>> responseEntity = new ResponseEntity<>( hotelsList, HttpStatus.OK );
         return responseEntity;
     }
 
