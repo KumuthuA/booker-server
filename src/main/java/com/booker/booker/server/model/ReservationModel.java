@@ -3,14 +3,16 @@ package com.booker.booker.server.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
-public class RoomTypeModel
+public class ReservationModel
 {
+
+    private String reservationId;
     private Integer roomTypeId;
-    private Integer contractEntityId;
-    private String typeName;
+    private LocalDateTime checkIn;
+    private LocalDateTime checkOut;
     private Integer roomCount;
-    private Integer maxAdults;
-    private Float price;
 }

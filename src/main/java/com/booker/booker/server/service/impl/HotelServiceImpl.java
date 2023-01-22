@@ -45,6 +45,20 @@ public class HotelServiceImpl implements HotelService
         return hotelIdModelList;
     }
 
+    @Override
+    public List<HotelModel> getHotels()
+    {
+        List<HotelEntity> hotelEntityList = ( List<HotelEntity> ) hotelRepository.findAll();
+        List<HotelModel> hotelModelList = new ArrayList<>();
+        for( HotelEntity he : hotelEntityList )
+        {
+            HotelModel hotelModel = hotelConverter.convertEntityToModel( he );
+            hotelModelList.add( hotelModel );
+        }
+        return hotelModelList;
+    }
+
+
 //    @Override
 //    public List<HotelModel> getAllHotels()
 //    {

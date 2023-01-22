@@ -38,6 +38,14 @@ public class HotelController
         return responseEntity;
     }
 
+    @GetMapping( "/hotels" )
+    public ResponseEntity<List<HotelModel>> getHotels()
+    {
+        List<HotelModel> hotelsList = hotelService.getHotels();
+        ResponseEntity<List<HotelModel>> responseEntity = new ResponseEntity<>( hotelsList, HttpStatus.OK );
+        return responseEntity;
+    }
+
 //    @PutMapping("/hotels/{hotelId}")
 //    public  ResponseEntity<HotelModel>  updateHotel( @RequestBody HotelModel hotelModel, @PathVariable  Long hotelId){
 //        hotelModel = hotelService.updateHotel( hotelModel,hotelId );

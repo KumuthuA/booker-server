@@ -6,6 +6,7 @@ import com.booker.booker.server.entity.ContractEntity;
 import com.booker.booker.server.entity.HotelEntity;
 import com.booker.booker.server.entity.RoomTypeEntity;
 import com.booker.booker.server.exception.HotelNotFoundException;
+import com.booker.booker.server.model.ContractModel;
 import com.booker.booker.server.model.ContractRoomTypeModel;
 import com.booker.booker.server.model.RoomTypeModel;
 import com.booker.booker.server.repository.ContractRepository;
@@ -51,18 +52,18 @@ public class ContractServiceImpl implements ContractService
         return contractRoomTypeModel;
     }
 
-//    @Override
-//    public List<ContractModel> getAllContracts()
-//    {
-//        List<ContractEntity> contractEntityList = ( List<ContractEntity> ) contractRepository.findAll();
-//        List<ContractModel> contractModelList = new ArrayList<>();
-//        for( ContractEntity ce : contractEntityList )
-//        {
-//            ContractModel contractModel = contractConverter.convertEntityToModel( ce );
-//            contractModelList.add( contractModel );
-//        }
-//        return contractModelList;
-//    }
+    @Override
+    public List<ContractModel> getContracts()
+    {
+        List<ContractEntity> contractEntityList = ( List<ContractEntity> ) contractRepository.findAll();
+        List<ContractModel> contractModelList = new ArrayList<>();
+        for( ContractEntity ce : contractEntityList )
+        {
+            ContractModel contractModel = contractConverter.convertEntityToModel( ce );
+            contractModelList.add( contractModel );
+        }
+        return contractModelList;
+    }
 //
 //    @Override
 //    public List<ContractModel> getAllValidContracts()

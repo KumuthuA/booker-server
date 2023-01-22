@@ -29,7 +29,7 @@ public class RoomTypeConverter
         roomTypeModel.setRoomCount( roomTypeEntity.getRoomCount() );
         roomTypeModel.setMaxAdults( roomTypeEntity.getMaxAdults() );
         roomTypeModel.setPrice( roomTypeEntity.getPrice() );
-        //roomTypeModel.setContractEntity( roomTypeEntity.getContractEntity() );
+        roomTypeModel.setContractEntityId( roomTypeEntity.getContractEntity().getContractId() );
         return roomTypeModel;
     }
 }

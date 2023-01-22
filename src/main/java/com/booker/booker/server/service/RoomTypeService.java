@@ -6,7 +6,5 @@ import java.util.List;
 
 public interface RoomTypeService
 {
-    RoomTypeModel saveRoomType( RoomTypeModel hotelModel );
-
-    List<RoomTypeModel> getAllRoomTypes();
+    List<RoomTypeModel> getRoomTypes( Integer contractId );
 }

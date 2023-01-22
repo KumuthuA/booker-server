@@ -10,6 +10,9 @@ public interface HotelService
     HotelModel saveHotel( HotelModel hotelModel );
 
     List<HotelIdModel> getAllHotels();
+
+    List<HotelModel> getHotels();
+
     //HotelModel updateHotel(HotelModel hotelModel, Long hotelId);
     //HotelModel updateNumber( HotelModel hotelModel, Long hotelId);
     //void deleteHotel(Long hotelId);

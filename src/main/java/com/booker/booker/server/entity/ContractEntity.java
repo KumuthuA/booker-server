@@ -37,8 +37,8 @@ public class ContractEntity
     private LocalDateTime start;
     @Column( nullable = false )
     private LocalDateTime end;
-    @Column( nullable = false )
-    private Boolean isValid;
+//    @Column( nullable = false )
+//    private Boolean isValid;
     @Column( nullable = false )
     private Float markup;
 }
