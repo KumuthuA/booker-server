@@ -1,5 +1,6 @@
 package com.booker.booker.server.controller;
 
+import com.booker.booker.server.exception.EmailFoundException;
 import com.booker.booker.server.model.HotelIdModel;
 import com.booker.booker.server.model.HotelModel;
 import com.booker.booker.server.model.HotelRoomTypeModel;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -26,23 +28,35 @@ public class HotelController
     @Autowired
     private HotelService hotelService;
 
+    /*
+        Post method to add a hotel to database
+    */
     @PostMapping( "/hotels" )
-    public ResponseEntity<HotelModel> saveHotel( @RequestBody HotelModel hotelModel )
+    public ResponseEntity<HotelModel> saveHotel( @RequestBody HotelModel hotelModel ) throws EmailFoundException
     {
-        System.out.println( hotelModel );
         hotelModel = hotelService.saveHotel( hotelModel );
+        logger.info( "Saving the hotel " + hotelModel.getHotelName() );
         ResponseEntity<HotelModel> responseEntity = new ResponseEntity<>( hotelModel, HttpStatus.CREATED );
         return responseEntity;
     }
 
+    /*
+        GET method to retrieve all hotels with their id, name and city
+    */
     @GetMapping( "/hotelList" )
     public ResponseEntity<List<HotelIdModel>> getAllHotels()
     {
         List<HotelIdModel> hotelsList = hotelService.getAllHotels();
+        logger.info( "Retrieving all hotels" );
         ResponseEntity<List<HotelIdModel>> responseEntity = new ResponseEntity<>( hotelsList, HttpStatus.OK );
         return responseEntity;
     }
 
+    /*
+        GET method to get all hotels with their details
+
+        @return
+    */
     @GetMapping( "/hotels" )
     public ResponseEntity<List<HotelModel>> getHotels()
     {
@@ -51,33 +65,15 @@ public class HotelController
         return responseEntity;
     }
 
+    /*    POST method to search hotel availability
+
+        @param searchModel including check-in date, no, of nights, and an array of maxAdults, adultsPerRoom*/
     @PostMapping( "/search" )
     public ResponseEntity<List<HotelRoomTypeModel>> search( @RequestBody SearchModel searchModel )
     {
-        List<HotelRoomTypeModel> hotelsList = hotelService.search(searchModel);
-        //ResponseEntity<List<HotelRoomTypeModel>> responseEntity = new ResponseEntity<>( hotelsList, HttpStatus.OK );
-        //return responseEntity;
-        return null;
+        HashMap<String,HotelRoomTypeModel> searchResult = hotelService.search( searchModel );
+        List<HotelRoomTypeModel> hotelsList = searchResult.values().stream().toList();
+        ResponseEntity<List<HotelRoomTypeModel>> responseEntity = new ResponseEntity<>( hotelsList, HttpStatus.OK );
+        return responseEntity;
     }
-
-//    @PutMapping("/hotels/{hotelId}")
-//    public  ResponseEntity<HotelModel>  updateHotel( @RequestBody HotelModel hotelModel, @PathVariable  Long hotelId){
-//        hotelModel = hotelService.updateHotel( hotelModel,hotelId );
-//        ResponseEntity<HotelModel> responseEntity = new ResponseEntity<>( hotelModel,HttpStatus.OK);
-//        return responseEntity;
-//    }
-//
-//    @PatchMapping("/hotels/update-number/{hotelId}")
-//    public  ResponseEntity<HotelModel>  updateNumber(@RequestBody HotelModel hotelModel,@PathVariable Long hotelId){
-//        hotelModel = hotelService.updateNumber( hotelModel,hotelId );
-//        ResponseEntity<HotelModel> responseEntity = new ResponseEntity<>( hotelModel,HttpStatus.OK);
-//        return responseEntity;
-//    }
-//
-//    @DeleteMapping("/hotels/{hotelId}")
-//    public ResponseEntity deleteHotel(@PathVariable Long hotelId){
-//        hotelService.deleteHotel(hotelId);
-//        ResponseEntity<Void> responseEntity = new ResponseEntity<>( null,HttpStatus.NO_CONTENT);
-//        return responseEntity;
-//    }
 }
