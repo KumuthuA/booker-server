@@ -18,6 +18,8 @@ import com.booker.booker.server.repository.ContractRepository;
 import com.booker.booker.server.repository.HotelRepository;
 import com.booker.booker.server.repository.RoomTypeRepository;
 import com.booker.booker.server.service.HotelService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,7 @@ import java.util.Optional;
 @Service
 public class HotelServiceImpl implements HotelService
 {
+    Logger logger = LoggerFactory.getLogger( HotelServiceImpl.class );
     @Autowired
     private HotelRepository hotelRepository;
     @Autowired
@@ -45,11 +48,14 @@ public class HotelServiceImpl implements HotelService
     @Autowired
     private RoomTypeRepository roomTypeRepository;
 
+    /*
+    Fetch data for search
+    */
     @Override
     public HashMap<String,HotelRoomTypeModel> search( SearchModel searchModel )
     {
         Map<Integer,Integer> roomDetails = hotelConverter.convertRoomDetailsToHash( searchModel.getRoomDetails() );
-        Integer adultSum = roomDetails.keySet().stream().mapToInt( Integer::intValue).sum();
+        Integer adultSum = roomDetails.keySet().stream().mapToInt( Integer::intValue ).sum();
         LocalDateTime start = timeConverter.utcToLocalDateTime( searchModel.getStart() );
         LocalDateTime end = start.plusDays( searchModel.getNights() );
         List<ContractEntity> validContractEntities = contractRepository.findByStartLessThanEqualAndEndGreaterThanEqual( start.plusDays( 1 ), end.minusDays( 1 ) );
@@ -72,7 +78,7 @@ public class HotelServiceImpl implements HotelService
                 }
                 if( availability == Boolean.TRUE )
                 {
-                    result.merge( contract.getHotelEntity().getHotelId(), hotelRoomTypeConverter.convertEntityToModel( contract, roomTypeEntity,searchModel.getNights(), adultSum), ( oldVal, newVal ) -> newVal = hotelRoomTypeConverter.convertEntityToModelByAdding( oldVal, contract.getMarkup(), roomTypeEntity, searchModel.getNights(), adultSum ) );
+                    result.merge( contract.getHotelEntity().getHotelId(), hotelRoomTypeConverter.convertEntityToModel( contract, roomTypeEntity, searchModel.getNights(), adultSum ), ( oldVal, newVal ) -> newVal = hotelRoomTypeConverter.convertEntityToModelByAdding( oldVal, contract.getMarkup(), roomTypeEntity, searchModel.getNights(), adultSum ) );
                 }
             }
         }
@@ -80,6 +86,9 @@ public class HotelServiceImpl implements HotelService
         return result;
     }
 
+    /*
+        Save hotel entry in DB
+    */
     @Override
     public HotelModel saveHotel( HotelModel hotelModel ) throws EmailFoundException
     {
@@ -94,6 +103,9 @@ public class HotelServiceImpl implements HotelService
         return hotelModel;
     }
 
+    /*
+        Fetch all hotel, hotelID for selection option in contract adding form
+    */
     @Override
     public List<HotelIdModel> getAllHotels()
     {
@@ -107,19 +119,27 @@ public class HotelServiceImpl implements HotelService
         return hotelIdModelList;
     }
 
+    /*
+        Fetch all hotels in the system
+    */
     @Override
     public List<HotelModel> getHotels()
     {
-        List<HotelEntity> hotelEntityList = ( List<HotelEntity> ) hotelRepository.findAll();
+        LocalDateTime today = LocalDateTime.now();
+        List<com.booker.booker.server.repository.HotelEntity> hotelEntityList = contractRepository.findDistinctByStartLessThanEqualAndEndGreaterThanEqual( today.plusDays( 1 ), today.minusDays( 1 ) );
+//        List<HotelEntity> hotelEntityList = ( List<HotelEntity> ) hotelRepository.find;
         List<HotelModel> hotelModelList = new ArrayList<>();
-        for( HotelEntity he : hotelEntityList )
+        for( com.booker.booker.server.repository.HotelEntity he : hotelEntityList )
         {
-            HotelModel hotelModel = hotelConverter.convertEntityToModel( he );
+            HotelModel hotelModel = hotelConverter.convertEntityToModel( he.getHotelEntity() );
             hotelModelList.add( hotelModel );
         }
         return hotelModelList;
     }
 
+/*
+    Fetch all rooms of a hotel
+*/
     @Override
     public List<RoomTypeModel> getRooms( String hotelId )
     {

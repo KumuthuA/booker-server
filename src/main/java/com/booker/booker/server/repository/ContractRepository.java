@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface ContractRepository extends JpaRepository<ContractEntity,Integer>
 {
+    @Query( "select distinct c from ContractEntity c where c.start <= ?1 and c.end >= ?2" )
+    List<HotelEntity> findDistinctByStartLessThanEqualAndEndGreaterThanEqual( LocalDateTime start, LocalDateTime end );
     @Query( "select c from ContractEntity c where c.start <= ?1 and c.end >= ?2" )
     List<ContractEntity> findByStartLessThanEqualAndEndGreaterThanEqual( LocalDateTime start, LocalDateTime end );
 

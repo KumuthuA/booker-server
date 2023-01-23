@@ -36,8 +36,8 @@ public class HotelController
     @PostMapping( "/hotels" )
     public ResponseEntity<HotelModel> saveHotel( @RequestBody HotelModel hotelModel ) throws EmailFoundException
     {
-        hotelModel = hotelService.saveHotel( hotelModel );
         logger.info( "Saving the hotel " + hotelModel.getHotelName() );
+        hotelModel = hotelService.saveHotel( hotelModel );
         ResponseEntity<HotelModel> responseEntity = new ResponseEntity<>( hotelModel, HttpStatus.CREATED );
         return responseEntity;
     }
@@ -48,8 +48,8 @@ public class HotelController
     @GetMapping( "/hotelList" )
     public ResponseEntity<List<HotelIdModel>> getAllHotels()
     {
-        List<HotelIdModel> hotelsList = hotelService.getAllHotels();
         logger.info( "Retrieving all hotels" );
+        List<HotelIdModel> hotelsList = hotelService.getAllHotels();
         ResponseEntity<List<HotelIdModel>> responseEntity = new ResponseEntity<>( hotelsList, HttpStatus.OK );
         return responseEntity;
     }
@@ -62,6 +62,7 @@ public class HotelController
     @GetMapping( "/hotels" )
     public ResponseEntity<List<HotelModel>> getHotels()
     {
+        logger.info( "Retrieving all hotels" );
         List<HotelModel> hotelsList = hotelService.getHotels();
         ResponseEntity<List<HotelModel>> responseEntity = new ResponseEntity<>( hotelsList, HttpStatus.OK );
         return responseEntity;
@@ -73,15 +74,20 @@ public class HotelController
     @PostMapping( "/search" )
     public ResponseEntity<List<HotelRoomTypeModel>> search( @RequestBody SearchModel searchModel )
     {
+        logger.info( "Searching for available hotels" );
         HashMap<String,HotelRoomTypeModel> searchResult = hotelService.search( searchModel );
         List<HotelRoomTypeModel> hotelsList = searchResult.values().stream().toList();
         ResponseEntity<List<HotelRoomTypeModel>> responseEntity = new ResponseEntity<>( hotelsList, HttpStatus.OK );
         return responseEntity;
     }
 
+    /*    GET method to fetch all available rooms of a hotel
+
+        @param hotelID */
     @GetMapping( "/rooms/{hotelId}" )
     public ResponseEntity<List<RoomTypeModel>> getRooms( @PathVariable String hotelId )
     {
+        logger.info( "Fetching rooms of the hotel : " + hotelId );
         List<RoomTypeModel> roomTypeModelList = hotelService.getRooms( hotelId );
         ResponseEntity<List<RoomTypeModel>> responseEntity = new ResponseEntity<>( roomTypeModelList, HttpStatus.OK );
         return responseEntity;

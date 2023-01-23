@@ -80,7 +80,7 @@ public class ContractServiceImpl implements ContractService
     @Override
     public List<ContractModel> getContracts()
     {
-        List<ContractEntity> contractEntityList = ( List<ContractEntity> ) contractRepository.findByEndGreaterThanEqual( LocalDateTime.now() );
+        List<ContractEntity> contractEntityList = ( List<ContractEntity> ) contractRepository.findByEndGreaterThanEqual( LocalDateTime.now().minusDays( 1 ) );
         List<ContractModel> contractModelList = new ArrayList<>();
         for( ContractEntity ce : contractEntityList )
         {
