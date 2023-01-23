@@ -92,14 +92,18 @@ public class HotelServiceImpl implements HotelService
     @Override
     public HotelModel saveHotel( HotelModel hotelModel ) throws EmailFoundException
     {
+        logger.info( "Checking if the hotel is in the database" );
         Optional<HotelEntity> hotelEntityOptional = hotelRepository.findByEmail( hotelModel.getEmail() );
         if( hotelEntityOptional.isPresent() )
         {
             throw new EmailFoundException( "Email taken!" );
         }
+        logger.info( "Hotel does not exists in the system" );
         HotelEntity he = hotelConverter.convertModelToEntity( hotelModel );
+        logger.info( "Saving the hotel : " + hotelModel.getHotelName() );
         he = hotelRepository.save( he );
         hotelModel = hotelConverter.convertEntityToModel( he );
+        logger.info( "Saved the hotel successfully" );
         return hotelModel;
     }
 
@@ -109,6 +113,7 @@ public class HotelServiceImpl implements HotelService
     @Override
     public List<HotelIdModel> getAllHotels()
     {
+        logger.info( "Fetching for all the hotel is in the database" );
         List<HotelEntity> hotelEntityList = ( List<HotelEntity> ) hotelRepository.findAll();
         List<HotelIdModel> hotelIdModelList = new ArrayList<>();
         for( HotelEntity he : hotelEntityList )
@@ -120,12 +125,13 @@ public class HotelServiceImpl implements HotelService
     }
 
     /*
-        Fetch all hotels in the system
+        Fetch all hotels in the system with active contracts
     */
     @Override
     public List<HotelModel> getHotels()
     {
         LocalDateTime today = LocalDateTime.now();
+        logger.info( "Fetching all hotels with active contracts" );
         List<com.booker.booker.server.repository.HotelEntity> hotelEntityList = contractRepository.findDistinctByStartLessThanEqualAndEndGreaterThanEqual( today.plusDays( 1 ), today.minusDays( 1 ) );
 //        List<HotelEntity> hotelEntityList = ( List<HotelEntity> ) hotelRepository.find;
         List<HotelModel> hotelModelList = new ArrayList<>();
@@ -137,17 +143,19 @@ public class HotelServiceImpl implements HotelService
         return hotelModelList;
     }
 
-/*
-    Fetch all rooms of a hotel
-*/
+    /*
+        Fetch all rooms of a hotel
+    */
     @Override
     public List<RoomTypeModel> getRooms( String hotelId )
     {
+        logger.info( "Checking if hotel available with ID:" + hotelId );
         if( !hotelRepository.existsByHotelId( hotelId ) )
         {
             throw new HotelNotFoundException( "Hotel not found!" );
         }
         LocalDateTime today = LocalDateTime.now();
+        logger.info( "Fetching all rooms of the hotel:" + hotelId );
         List<RoomTypeEntity> roomTypeEntityList = ( List<RoomTypeEntity> ) roomTypeRepository.findByContractEntity_HotelEntity_HotelIdAndContractEntity_StartLessThanEqualAndContractEntity_EndGreaterThanEqual( hotelId, today.plusDays( 1 ), today.minusDays( 1 ) );
         List<RoomTypeModel> roomTypeModelList = new ArrayList<>();
         for( RoomTypeEntity re : roomTypeEntityList )
