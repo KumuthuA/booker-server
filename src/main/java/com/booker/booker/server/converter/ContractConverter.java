@@ -25,7 +25,6 @@ public class ContractConverter
         ce.setHotelEntity( hotelEntity );
         ce.setStart( start );
         ce.setEnd( end );
-        //ce.setIsValid( end.isAfter( LocalDateTime.now() ) );
         ce.setMarkup( contractRoomTypeModel.getMarkup() );
         return ce;
     }
@@ -57,7 +56,7 @@ public class ContractConverter
         //cm.setContractNo( contractEntity.getContractNo() );
         cm.setStart( start );
         cm.setEnd( end );
-        cm.setIsValid( end.isAfter( LocalDateTime.now() ) );
+        //cm.setIsValid( end.isAfter( LocalDateTime.now() ) );
         cm.setMarkup( contractEntity.getMarkup() );
         return cm;
     }

@@ -4,6 +4,7 @@ import com.booker.booker.server.exception.EmailFoundException;
 import com.booker.booker.server.model.HotelIdModel;
 import com.booker.booker.server.model.HotelModel;
 import com.booker.booker.server.model.HotelRoomTypeModel;
+import com.booker.booker.server.model.RoomTypeModel;
 import com.booker.booker.server.model.SearchModel;
 import com.booker.booker.server.service.HotelService;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,6 +76,14 @@ public class HotelController
         HashMap<String,HotelRoomTypeModel> searchResult = hotelService.search( searchModel );
         List<HotelRoomTypeModel> hotelsList = searchResult.values().stream().toList();
         ResponseEntity<List<HotelRoomTypeModel>> responseEntity = new ResponseEntity<>( hotelsList, HttpStatus.OK );
+        return responseEntity;
+    }
+
+    @GetMapping( "/rooms/{hotelId}" )
+    public ResponseEntity<List<RoomTypeModel>> getRooms( @PathVariable String hotelId )
+    {
+        List<RoomTypeModel> roomTypeModelList = hotelService.getRooms( hotelId );
+        ResponseEntity<List<RoomTypeModel>> responseEntity = new ResponseEntity<>( roomTypeModelList, HttpStatus.OK );
         return responseEntity;
     }
 }

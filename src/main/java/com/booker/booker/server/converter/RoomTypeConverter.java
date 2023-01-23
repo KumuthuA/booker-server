@@ -11,8 +11,6 @@ public class RoomTypeConverter
     public RoomTypeEntity convertModelToEntity( RoomTypeModel roomTypeModel, ContractEntity contractEntity )
     {
         RoomTypeEntity roomTypeEntity = new RoomTypeEntity();
-        //ce.setHotelId(contractModel.getHotelId());
-        //roomTypeEntity.setRoomTypeId( roomTypeModel.getRoomTypeId() );
         roomTypeEntity.setContractEntity( contractEntity );
         roomTypeEntity.setTypeName( roomTypeModel.getTypeName() );
         roomTypeEntity.setRoomCount( roomTypeModel.getRoomCount() );
@@ -29,6 +27,18 @@ public class RoomTypeConverter
         roomTypeModel.setRoomCount( roomTypeEntity.getRoomCount() );
         roomTypeModel.setMaxAdults( roomTypeEntity.getMaxAdults() );
         roomTypeModel.setPrice( roomTypeEntity.getPrice() );
+        roomTypeModel.setContractEntityId( roomTypeEntity.getContractEntity().getContractId() );
+        return roomTypeModel;
+    }
+
+    public RoomTypeModel convertEntityToModelWithMarkedPrice( RoomTypeEntity roomTypeEntity )
+    {
+        RoomTypeModel roomTypeModel = new RoomTypeModel();
+        roomTypeModel.setRoomTypeId( roomTypeEntity.getRoomTypeId() );
+        roomTypeModel.setTypeName( roomTypeEntity.getTypeName() );
+        roomTypeModel.setRoomCount( roomTypeEntity.getRoomCount() );
+        roomTypeModel.setMaxAdults( roomTypeEntity.getMaxAdults() );
+        roomTypeModel.setPrice( roomTypeEntity.getPrice()*(1+roomTypeEntity.getContractEntity().getMarkup()) );
         roomTypeModel.setContractEntityId( roomTypeEntity.getContractEntity().getContractId() );
         return roomTypeModel;
     }

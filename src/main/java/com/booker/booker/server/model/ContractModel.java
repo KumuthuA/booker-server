@@ -15,6 +15,5 @@ public class ContractModel
     private String city;
     private LocalDateTime start;
     private LocalDateTime end;
-    private Boolean isValid;
     private Float markup;
 }

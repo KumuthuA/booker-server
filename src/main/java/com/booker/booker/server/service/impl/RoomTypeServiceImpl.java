@@ -2,6 +2,7 @@ package com.booker.booker.server.service.impl;
 
 import com.booker.booker.server.converter.RoomTypeConverter;
 import com.booker.booker.server.entity.RoomTypeEntity;
+import com.booker.booker.server.exception.ContractNotFoundException;
 import com.booker.booker.server.exception.HotelNotFoundException;
 import com.booker.booker.server.model.RoomTypeModel;
 import com.booker.booker.server.repository.ContractRepository;
@@ -28,7 +29,7 @@ public class RoomTypeServiceImpl implements RoomTypeService
     {
         if( !contractRepository.existsById( contractId ) )
         {
-            throw new HotelNotFoundException( "Contract not found!" );
+            throw new ContractNotFoundException( "Contract not found!" );
         }
         List<RoomTypeEntity> roomTypeEntityList = ( List<RoomTypeEntity> ) roomTypeRepository.findByContractEntity_ContractId( contractId );
         List<RoomTypeModel> roomTypeModelList = new ArrayList<>();

@@ -4,6 +4,7 @@ import com.booker.booker.server.exception.EmailFoundException;
 import com.booker.booker.server.model.HotelIdModel;
 import com.booker.booker.server.model.HotelModel;
 import com.booker.booker.server.model.HotelRoomTypeModel;
+import com.booker.booker.server.model.RoomTypeModel;
 import com.booker.booker.server.model.SearchModel;
 
 import java.util.HashMap;
@@ -18,4 +19,6 @@ public interface HotelService
     List<HotelModel> getHotels();
 
     HashMap<String,HotelRoomTypeModel> search( SearchModel searchModel );
+
+    List<RoomTypeModel> getRooms( String hotelId );
 }
